@@ -24,24 +24,18 @@ module modfivecount(
     input clk,
     input reset,
     input enable,
-    output reg [3:0] q,
+    output [3:0] q,
     output flag
     );
     
-    initial begin
-    q[0] = 0;  //Q = 0 initially
-    q[1] = 0;
-    q[2] = 0;
-    q[3] = 0;
-    end
     
     wire fiveout, load;
+    
+    counter d0(load, enable, 0, 0, 0, 0, clk, reset, q);
     
     assign flag = ((q[0])&(q[2])); //signal next timer if this timer is at 5
     assign fiveout = ((q[0])*(q[2])); // 0101 = 5
     assign load = (fiveout|reset); //reset to 0 if 0101 or if reset
-    
-    counter d0(load, enable, 0, 0, 0, 0, clk, q);
     
     
 endmodule
