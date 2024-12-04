@@ -23,17 +23,20 @@
 module dflipflop(
     input D,
     input clk,
+    input reset,
     output reg q
     );
     
-    initial begin
-    q = 0;  //Q = 0 initially
-    end
-    
-    always@(posedge clk) begin
-    q  <= D;
-    end
-    
-    
+    always @(posedge clk or posedge reset)
+    begin
+        if (reset)
+        begin
+            q = 1'b0;  
+        end
+        else
+        begin
+            q=D; 
+        end
+    end 
     
 endmodule
