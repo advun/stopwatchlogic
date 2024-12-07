@@ -34,8 +34,8 @@ module modninecount(
     
     counter d0(0, enable, 0, 0, 0, 0, clk, unset, q);
     assign flag = ((q[3])&(q[0])); //signal next timer if this timer is at 9
-    assign nineout = ((q[3])&(q[1])); // 1001 = 9
-    assign unset = (nineout|reset); //reset to 0 if 1001 or if reset
+    assign nineout = ((q[3])&(q[1])); // 1010 = 10, this timer should be reset if reaches 10
+    assign unset = (nineout|reset); //reset to 0 if at 10 or if reset
     
     
     
