@@ -24,23 +24,19 @@ module modninecount(
     input clk,
     input reset,
     input enable,
-    output reg [3:0] q,
+    output [3:0] q,
     output flag
     );
     
-    initial begin
-    q[0] = 0;  //Q = 0 initially
-    q[1] = 0;
-    q[2] = 0;
-    q[3] = 0;
-    end
     
-    wire nineout, load;
+    wire nineout, unset;
     
+    
+    counter d0(0, enable, 0, 0, 0, 0, clk, unset, q);
     assign flag = ((q[3])&(q[0])); //signal next timer if this timer is at 9
-    assign fiveout = ((q[3])&(q[0])); // 1001 = 9
-    assign load = (fiveout|reset); //reset to 0 if 1001 or if reset
+    assign nineout = ((q[3])&(q[1])); // 1001 = 9
+    assign unset = (nineout|reset); //reset to 0 if 1001 or if reset
     
-    counter d0(load, enable, 0, 0, 0, 0, clk, q);
+    
     
 endmodule
